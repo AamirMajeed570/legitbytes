@@ -1,0 +1,35 @@
+# lets write some yaml
+
+courses:
+  course_name: "JavaScript Backend Developer"
+  version: 1.5
+  price: 299
+  isPublic: true
+  release_date: 2024-08-06 10:31
+  pre_enroll: null
+  tags: # Putting up an array inside YAML
+    - javascript
+    - full stack
+    - devOps
+    - NoSql
+  course-ta: ["john","emmanuel","Dave"] # This is same as above
+  # Array of Objects in YAML
+  ta_details:
+    - name: "john"
+      email: "john@dev.in"
+      role: "Devops Engineer"
+    - name: "emmanuel"
+      email: "emmanuel@js.in"
+      role: "JS Developer"
+    - {name: "Dave", email: "dave@python.in", role: "Python Dev" }
+  short-desc: >
+    This is a Course Discription
+    The course is related to JS
+  long-desc: |
+    We can also store long 
+    description related to the course
+    in this way as well
+      
+      
+
+
