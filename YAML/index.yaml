@@ -31,5 +31,43 @@ courses:
     in this way as well
       
       
-
+# In JavaScript it looks like this
+# const course = {
+#   course_name: "JavaScript Backend Developer",
+#   version: 1.5,
+#   price: 299,
+#   isPublic: true,
+#   release_date: "2024-08-06T10:31:00Z",
+#   pre_enroll: null,
+#   tags: [ // Array of strings
+#     "javascript",
+#     "full stack",
+#     "devOps",
+#     "NoSql"
+#   ],
+#   course_ta: [ // Array of strings
+#     "john",
+#     "emmanuel",
+#     "Dave"
+#   ],
+#   ta_details: [ // Array of objects
+#     {
+#       name: "john",
+#       email: "john@dev.in",
+#       role: "DevOps Engineer"
+#     },
+#     {
+#       name: "emmanuel",
+#       email: "emmanuel@js.in",
+#       role: "JS Developer"
+#     },
+#     {
+#       name: "Dave",
+#       email: "dave@python.in",
+#       role: "Python Developer"
+#     }
+#   ],
+#   short_desc: "This is a Course Description\nThe course is related to JS",
+#   long_desc: "We can also store long \ndescription related to the course\nin this way as well"
+# };
 
