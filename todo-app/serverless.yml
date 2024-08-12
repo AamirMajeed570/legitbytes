@@ -1,0 +1,64 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: organization123
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+# app: todo
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: todo-app
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  profile: aamir
+  environment:
+    TABLE_NAME: ${self:custom.tableName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Scan
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:custom.tableName}
+
+
+custom:
+  tableName: todo-app
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+  createTodo:
+    handler: handler.createTodo
+    events:
+      - httpApi:
+          path: /todo
+          method: post
+  getTodo:
+    handler: handler.getTodo
+    events:
+      - httpApi:
+          path: /todo/{id}
+          method: get
+  
+
+resources:
+  Resources:
+    MyDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+        
