@@ -22,7 +22,7 @@ exports.createTodo = async (event) => {
       Item: {
         ID: id,
         content,
-        status,
+        state,
         createdAt: new Date().toISOString(),
       },
     };
@@ -65,4 +65,45 @@ exports.getTodo = async (event) =>{
     }
   }
 
+}
+
+exports.updateTodo = async (event) =>{
+    const {id} = event.pathParameters;
+    let content,statuss;
+    try {
+      const {content:newContent,state:newStatus} = JSON.parse(event.body);
+      content = newContent;
+      statuss = newStatus;
+    } catch (error) {
+      console.log('Error Parsing Request Body:', error.message);
+      return {
+          statusCode: 400,
+          body: JSON.stringify({ message: 'Invalid request body' }),
+      };
+    }
+    console.log('Data--->', id,content,statuss)
+    const params = {
+      TableName: TABLE_NAME,
+      Key: {ID:id},
+      UpdateExpression: 'set content = :content,statuss = :statuss',
+      ExpressionAttributeValues: {
+        ':content': content,
+        ':statuss': statuss,
+      },
+      ReturnValues: 'ALL_NEW',
+    };
+    try {
+      const result = await dynamoDb.update(params).promise()
+      console.log('Updated Data is --->', result);
+      return {
+        statusCode: 200,
+        body: JSON.stringify(result.Attributes),
+      }
+    } catch (error) {
+      console.log('Error Updating Todo--->', error?.message);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({message:'Internal Server error (updateTodo)'}),
+      }
+    }
 }
