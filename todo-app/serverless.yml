@@ -27,30 +27,36 @@ custom:
   tableName: todo-app
 
 functions:
-  # hello:
-  #   handler: handler.hello
-  #   events:
-  #     - httpApi:
-  #         path: /
-  #         method: get
-  # createTodo:
-  #   handler: handler.createTodo
-  #   events:
-  #     - httpApi:
-  #         path: /todo
-  #         method: post
-  # getTodo:
-  #   handler: handler.getTodo
-  #   events:
-  #     - httpApi:
-  #         path: /todo/{id}
-  #         method: get
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+  createTodo:
+    handler: handler.createTodo
+    events:
+      - httpApi:
+          path: /todo
+          method: post
+  getTodo:
+    handler: handler.getTodo
+    events:
+      - httpApi:
+          path: /todo/{id}
+          method: get
   updateTodo:
     handler: handler.updateTodo
     events:
       - httpApi:
           path: /update/{id}
           method: put
+  deleteTodo:
+    handler: handler.deleteTodo
+    events:
+      - httpApi:
+          path: /delete/{id}
+          method: delete
   
 
 resources:

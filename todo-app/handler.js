@@ -15,14 +15,14 @@ exports.createTodo = async (event) => {
   let responseMessage = 'Todo Created Successfully';
   console.log('Hello World ---1223')
   try {
-    const { id, content, status } = JSON.parse(event.body);
+    const { id, content, statuss } = JSON.parse(event.body);
 
     const params = {
       TableName: process.env.TABLE_NAME,
       Item: {
         ID: id,
         content,
-        state,
+        statuss,
         createdAt: new Date().toISOString(),
       },
     };
@@ -106,4 +106,25 @@ exports.updateTodo = async (event) =>{
         body: JSON.stringify({message:'Internal Server error (updateTodo)'}),
       }
     }
+}
+
+exports.deleteTodo = async (event) =>{
+  const {id} = event.pathParameters;
+  const params = {
+    TableName: TABLE_NAME,
+    Key: {ID:id},
+  }
+  try {
+    await dynamoDb.delete(params).promise()
+    return {
+      statusCode: 200,
+      body: JSON.stringify({message: 'Todo Deleted Succesfully'})
+    }
+    
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({message:'Something went Wrong While Deleting Todo'})
+    }
+  }
 }
