@@ -1,2 +1,2 @@
 # legitbytes
-# I ham making some changes to this repositry 
+# I am making some changes to this repo.
